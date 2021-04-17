@@ -24,6 +24,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 
+
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
   */
@@ -132,8 +133,13 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
+extern uint32_t SysTickCnt;
+extern void shcedule(void);
+
 void SysTick_Handler(void)
 {
+    SysTickCnt++;
+    shcedule();
 }
 
 /******************************************************************************/
