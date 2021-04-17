@@ -7,6 +7,7 @@
 
 /* 系统时钟计数 */
 extern uint32_t SysTickCnt;
+/* 系统硬件初始化完成 */
 extern bool systemReady;
 
 #ifndef __bool_true_false_are_defined
