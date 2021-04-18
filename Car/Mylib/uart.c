@@ -83,10 +83,10 @@ static void uart4_init() {
 	nvic.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&nvic);
     
-    usart.USART_BaudRate = 115200;
-    usart.USART_WordLength = USART_WordLength_9b;
+    usart.USART_BaudRate = 9600;
+    usart.USART_WordLength = USART_WordLength_8b;
     usart.USART_StopBits = USART_StopBits_1;
-    usart.USART_Parity = USART_Parity_Odd;
+    usart.USART_Parity = USART_Parity_No;
     usart.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 	usart.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
     USART_Init(UART4, &usart);
@@ -148,7 +148,9 @@ typedef enum {
 
 static Esp8266SendStatus_t Esp8266SendStatus = SetWorkMode;
 static char SendBuffer[100] = {'\0'};
-static bool isWaitFeedback = false;
+/* 等待回应 */
+bool isWaitFeedback = false;
+uint16_t WaitFeedbackCnt = 0;
 
 /**********************FUNCTION***********************
  * @brief: 向Esp8266发送数据，也就是反馈到PC客户端的数据
@@ -310,17 +312,17 @@ bool isRecvingFromEsp8266 = false;
 uint16_t RecvingFromEsp8266Cnt = 0;
 /* 缓冲区 */
 static char Esp8266RecvBuffer[100] = {'\0'};
+/* 通信缓冲区 */
+static uint8_t buffer[sizeof(RecvfromEspData_t)] = {0};
 
 void UART4_IRQHandler() {
-    static uint8_t recvCnt = 0;
-    static uint8_t buffer[sizeof(RecvfromEspData_t)] = {0};
-    static bool recvflag = false;
-    
     if (USART_GetFlagStatus(UART4, USART_IT_RXNE) != RESET) {
         USART_ClearITPendingBit(UART4, USART_IT_RXNE);
         uint8_t data = USART_ReceiveData(UART4);
         
         if (Esp8266SendStatus == Sending) {
+            static uint8_t recvCnt = 0;
+            static bool recvflag = false;
             /* 发送模式下解析数据，判断0xa5作为开头，接收一定长度的数据后停止 */
             /* Esp8266可能会返回其它信息，但我们只要0xa5开头的 */
             if (data == 0xa5) {
@@ -337,9 +339,10 @@ void UART4_IRQHandler() {
             esp8266OfflineCnt = 0;
         } else {
             static uint8_t index = 0;
-            /* 在非数据模式下发送，等待20ms后没有新的数据则认为接收结束 */
+            /* 在非数据模式下发送，等待10ms后没有新的数据则认为接收结束 */
             isWaitFeedback = false;
-            if (isRecvingFromEsp8266 == true) {
+            WaitFeedbackCnt = 0;
+            if (isRecvingFromEsp8266 == true && index < 100) {
                 RecvingFromEsp8266Cnt = 0;
                 Esp8266RecvBuffer[index++] = data;
             } else {
@@ -350,4 +353,3 @@ void UART4_IRQHandler() {
         }
     }
 }
-

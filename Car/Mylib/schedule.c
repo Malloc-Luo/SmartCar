@@ -6,6 +6,10 @@ extern bool isEsp8266Offline;
 extern bool isRaspberryOffline;
 extern bool isRecvingFromEsp8266;
 extern uint16_t RecvingFromEsp8266Cnt;
+extern bool isWaitFeedback;
+extern uint16_t WaitFeedbackCnt;
+extern void send_esp8266_data(void);
+extern void send_raspberry_data(void);
 
 /* 树莓派离线计数 */
 uint32_t raspberryOfflineCnt = 0;
@@ -18,7 +22,12 @@ uint32_t esp8266OfflineCnt = 0;
 static void task_500Hz(void) {
     isRaspberryOffline = (raspberryOfflineCnt++ >= 250);
     isEsp8266Offline = (esp8266OfflineCnt++ >= 250);
-    isRecvingFromEsp8266 = (RecvingFromEsp8266Cnt++ <= 10);
+    isRecvingFromEsp8266 = (RecvingFromEsp8266Cnt++ < 5);
+    /* 等待接收计数 */
+    if (WaitFeedbackCnt++ >= 100) {
+        isWaitFeedback = false;
+        WaitFeedbackCnt = 0;
+    }
 }
 
 /**********************FUNCTION***********************
@@ -51,6 +60,7 @@ static void task_100Hz_part2(void) {
 
 
 static void task_20Hz(void) {
+    send_esp8266_data();
 }
 
 /**********************FUNCTION***********************
