@@ -1,7 +1,7 @@
 QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+QT += network
 CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
@@ -17,13 +17,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    widget.cpp
+    mainclient.cpp \
+    socket.cpp
 
 HEADERS += \
-    widget.h
+    controldata.h \
+    mainclient.h \
+    socket.h
 
 FORMS += \
-    widget.ui
+    mainclient.ui
 
 TRANSLATIONS += \
     SmartCarClient_zh_CN.ts

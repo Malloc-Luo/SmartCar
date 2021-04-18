@@ -1,0 +1,6 @@
+# AT
+AT
+
+AT+CWJAP_DEF="yuqi","20184023"
+AT+RST
+AT+RESTORE

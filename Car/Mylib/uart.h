@@ -13,4 +13,7 @@ extern void send_raspberry_data(void);
 extern bool isRecvingFromEsp8266;
 extern uint16_t RecvingFromEsp8266Cnt;
 
+extern bool isWaitFeedback;
+extern uint16_t WaitFeedbackCnt;
+
 #endif
