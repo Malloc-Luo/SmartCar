@@ -11,9 +11,11 @@
 #include "stm32f10x.h"
 #include "uart.h"
 #include "timer.h"
+#include "motorDrive.h"
+#include "control.h"
 #include <stdbool.h>
 
-uint32_t SysTickCnt = 0;
+volatile uint32_t SysTickCnt = 0;
 bool systemReady = false;
 
 static inline void hardware_init(void) {
@@ -21,6 +23,10 @@ static inline void hardware_init(void) {
     uart_init();
     /* 编码器初始化 */
     encoder_init();
+    /* 电机驱动初始化 */
+    motor_driver_init();
+    /* pid参数初始化 */
+    pid_init();
     /* 系统滴答定时器中断1ms */
     SysTick_Config(SystemCoreClock / 1000);
     /* 高速时钟作为时钟源 */

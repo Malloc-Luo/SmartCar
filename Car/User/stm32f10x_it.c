@@ -133,7 +133,7 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-extern uint32_t SysTickCnt;
+extern volatile uint32_t SysTickCnt;
 extern void shcedule(void);
 
 void SysTick_Handler(void)

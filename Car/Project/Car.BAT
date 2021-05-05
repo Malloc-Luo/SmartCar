@@ -1,7 +1,4 @@
 SET PATH=D:\KeilMDK529\ARM\ARMCC\Bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.2\libnvvp;D:\Program Files\runtime\win64;D:\Program Files\bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;D:\Matlab2016a\runtime\win64;D:\Matlab2016a\bin;D:\Matlab2016a\polyspace\bin;C:\Users\24230\.dnx\bin;C:\Program Files\dotnet\;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\NVIDIA Corporation\Nsight Compute 2019.5.0\;C:\Program Files (x86)\dotnet\;C:\Program Files\Java\jdk-14.0.1\bin;C:\Program Files\Java\jdk-14.0.1\jre\bin;D:\GIT\Git\cmd;C:\Program Files\Sublime Text 3;D:\Softwares\Cmake\cmake-3.18.3-win64-x64\bin;C:\Windows\Microsoft.NET\Framework64\v4.0.30319;D:\Applications\putty\;D:\Qt\5.14.1\msvc2017_64\bin;D:\Softwares\VisualStudio2019\VC\Tools\MSVC\14.28.29333\bin\Hostx64\x86;D:\Softwares\VisualStudio2019\VC\Auxiliary\Build;D:\Softwares\Node_js\;C:\ProgramData\chocolatey\bin;D:\Softwares\anaconda;D:\Softwares\anaconda\Scripts;D:\Softwares\anaconda\Library\bin;D:\Softwares\anaconda\Library\usr\bin;D:\Softwares\anaconda\Library\mingw-w64\bin;D:\Softwares\anaconda\envs\opencv\Scripts;D:\Softwares\MinGW\bin;C:\Users\24230\.cargo\bin;C:\Users\24230\AppData\Local\Microsoft\WindowsApps;D:\Softwares\pyCharm\PyCharm Community Edition 2020.1.1\bin;D:\pycharm\PyCharm Community Edition with Anaconda plugin 2019.1.3\bin;D:\Microsoft VS Code\bin;D:\texlive\2019\bin\win32;C:\Users\24230\AppData\Local\Pandoc\;D:\Softwares\CLion\CLion 2020.2.3\bin;D:\FileBox\Code\Python\emailServer\emailServer;D:\Applications\AMPLcml;D:\FileBox\Code\Python\ConvertCoding;D:\gitkraken\bin;C:\Users\24230\.dotnet\tools;D:\Applications\PasswordManager\Password Manager;C:\Users\24230\ReCmd;C:\Users\24230\AppData\Roaming\npm;;D:\Softwares\Quartus\modelsim_ase\win32aloem
-SET ARMCC5_ASMOPT=--diag_suppress=9931
-SET ARMCC5_CCOPT=--diag_suppress=9931
-SET ARMCC5_LINKOPT=--diag_suppress=9931
 SET CPU_TYPE=STM32F103RC
 SET CPU_VENDOR=STMicroelectronics
 SET UV2_TARGET=Car
@@ -13,16 +10,14 @@ SET CPU_CLOCK=0x00B71B00
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\schedule.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\motordrive.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\timer.__i"
+"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\pid.__i"
+"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\control.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\misc.__i"
-"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_adc.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_bkp.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_cec.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_crc.__i"
-"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_dac.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_dbgmcu.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_dma.__i"
-"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_exti.__i"
-"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_flash.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_fsmc.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_gpio.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_iwdg.__i"
@@ -30,10 +25,8 @@ SET CPU_CLOCK=0x00B71B00
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_rcc.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_rtc.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_sdio.__i"
-"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_spi.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_tim.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_usart.__i"
-"D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\stm32f10x_wwdg.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmCC" --Via ".\objects\core_cm3.__i"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmAsm" --Via ".\objects\startup_stm32f10x_hd._ia"
 "D:\KeilMDK529\ARM\ARMCC\Bin\ArmLink" --Via ".\Objects\Car.lnp"

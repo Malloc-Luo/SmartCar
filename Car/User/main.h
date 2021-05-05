@@ -5,8 +5,8 @@
 #include <stdbool.h>
 #include "stm32f10x.h"
 
-/* 系统时钟计数 */
-extern uint32_t SysTickCnt;
+/* 系统时钟计数，1ms计一次 */
+extern volatile uint32_t SysTickCnt;
 /* 系统硬件初始化完成 */
 extern bool systemReady;
 
@@ -16,7 +16,7 @@ typedef enum {
     false = 0, true = 1
 } bool;
 
-#endif 
+#endif
 
 /* 三种模式 */
 typedef unsigned char Mode;
