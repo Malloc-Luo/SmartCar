@@ -8,7 +8,18 @@
   *****************************************************/
 #ifndef __MOTOR_DRIVE_H__
 #define __MOTOR_DRIVE_H__
+#include <stdint.h>
 
+typedef struct {
+    int16_t pwm1;
+    int16_t pwm2;
+    int16_t pwm3;
+    int16_t pwm4;
+} PwmOutStruct_t;
 
+extern PwmOutStruct_t PwmOutStruct;
+
+extern void motor_driver_init();
+extern void set_speed(int16_t v1, int16_t v2, int16_t v3, int16_t v4);
 
 #endif
