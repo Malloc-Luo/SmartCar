@@ -11,10 +11,13 @@ extern uint16_t WaitFeedbackCnt;
 extern SpeedStruct_t MotorSpeed;
 extern PwmOutStruct_t PwmOutStruct;
 extern void send_esp8266_data(void);
-extern void send_raspberry_data(void);
+//extern void send_raspberry_data(void);
 extern int32_t get_encoder(Motor_t motor);
 extern void set_speed(int16_t v1, int16_t v2, int16_t v3, int16_t v4);
 extern void pid_control();
+extern void control_mode_select();
+extern void car_control();
+
 
 /* 树莓派离线计数 */
 uint32_t raspberryOfflineCnt = 0;
@@ -26,13 +29,14 @@ int v1 = 0, v2 = 0, v3 = 0, v4 = 0;
   * @note: 两个串口的离线检测，超过500ms没有收到数据即认为离线
   *****************************************************/
 static void task_500Hz(void) {
-    isRaspberryOffline = (raspberryOfflineCnt++ >= 250);
+    isRaspberryOffline = (raspberryOfflineCnt++ >= 750);
     isEsp8266Offline = (esp8266OfflineCnt++ >= 250);
     /* 等待接收计数 */
     if (WaitFeedbackCnt++ >= 100) {
         isWaitFeedback = false;
         WaitFeedbackCnt = 0;
     }
+    control_mode_select();
 }
 
 /**********************FUNCTION***********************
@@ -58,8 +62,6 @@ static void task_100Hz_part1(void) {
     MotorSpeed.v2 = -get_encoder(MotorB);
     MotorSpeed.v3 = get_encoder(MotorC);
     MotorSpeed.v4 = get_encoder(MotorD);
-    pid_control();
-    set_speed(PwmOutStruct.pwm1, PwmOutStruct.pwm2, PwmOutStruct.pwm3, PwmOutStruct.pwm4);
 }
 
 /**********************FUNCTION***********************
@@ -72,6 +74,7 @@ static void task_100Hz_part2(void) {
 
 static void task_20Hz(void) {
     send_esp8266_data();
+    car_control();
 }
 
 

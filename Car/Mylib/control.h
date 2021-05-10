@@ -8,5 +8,7 @@
                             
 extern void pid_init();
 extern void pid_control();
+extern void control_mode_select();
+extern void car_control();
 
 #endif

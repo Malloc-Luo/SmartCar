@@ -18,7 +18,7 @@ static void TM2_encoder_init() {
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
     
     GPIO_PinRemapConfig(GPIO_PartialRemap1_TIM2, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;	
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
@@ -27,7 +27,7 @@ static void TM2_encoder_init() {
     
     TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
     TIM_TimeBaseStructure.TIM_Prescaler = 0x00;
-    TIM_TimeBaseStructure.TIM_Period = 65535;
+    TIM_TimeBaseStructure.TIM_Period = ENCODER_TIM_PERIOD;
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  
     TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
@@ -38,7 +38,7 @@ static void TM2_encoder_init() {
     TIM_ClearFlag(TIM2, TIM_FLAG_Update);
     TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
     
-    TIM_SetCounter(TIM2,0);
+    TIM_SetCounter(TIM2, 0);
     TIM_Cmd(TIM2, ENABLE); 
 }
 
@@ -60,7 +60,7 @@ static void TM3_encoder_init() {
 
     TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
     TIM_TimeBaseStructure.TIM_Prescaler = 0x0;
-    TIM_TimeBaseStructure.TIM_Period = 65535;
+    TIM_TimeBaseStructure.TIM_Period = ENCODER_TIM_PERIOD;
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
     TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
@@ -71,7 +71,7 @@ static void TM3_encoder_init() {
     TIM_ClearFlag(TIM3, TIM_FLAG_Update);
     TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
     
-    TIM_SetCounter(TIM3,0);
+    TIM_SetCounter(TIM3, 0);
     TIM_Cmd(TIM3, ENABLE); 
 }
 
@@ -87,7 +87,7 @@ static void TM4_encoder_init() {
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
 
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6|GPIO_Pin_7;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
@@ -104,7 +104,7 @@ static void TM4_encoder_init() {
     TIM_ClearFlag(TIM4, TIM_FLAG_Update);
     TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);
     
-    TIM_SetCounter(TIM4,0);
+    TIM_SetCounter(TIM4, 0);
     TIM_Cmd(TIM4, ENABLE); 
 }
 
@@ -120,9 +120,9 @@ static void TM5_encoder_init() {
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
     
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);	
+    GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
     TIM_TimeBaseStructure.TIM_Prescaler = 0x0;
@@ -137,8 +137,8 @@ static void TM5_encoder_init() {
     TIM_ClearFlag(TIM5, TIM_FLAG_Update);
     TIM_ITConfig(TIM5, TIM_IT_Update, ENABLE);
     
-    TIM_SetCounter(TIM5,0);
-    TIM_Cmd(TIM5, ENABLE); 
+    TIM_SetCounter(TIM5, 0);
+    TIM_Cmd(TIM5, ENABLE);
 }
 
 void encoder_init() {

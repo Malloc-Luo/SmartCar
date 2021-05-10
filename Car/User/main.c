@@ -11,12 +11,14 @@
 #include "stm32f10x.h"
 #include "uart.h"
 #include "timer.h"
+#include "main.h"
 #include "motorDrive.h"
 #include "control.h"
 #include <stdbool.h>
 
 volatile uint32_t SysTickCnt = 0;
 bool systemReady = false;
+Mode_t ControlMode = Mode_Pause;
 
 static inline void hardware_init(void) {
     /* 串口初始化 */

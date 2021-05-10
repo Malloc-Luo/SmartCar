@@ -6,3 +6,4 @@ Car/Project/Listings/
 *.scvd
 .vscode
 *.24230
+__pycache__

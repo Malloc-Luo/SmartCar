@@ -1,2 +1,6 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/new/main">
+        <file>smart.ico</file>
+        <file alias="select">png/selected.png</file>
+    </qresource>
+</RCC>

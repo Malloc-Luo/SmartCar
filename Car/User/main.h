@@ -10,23 +10,26 @@ extern volatile uint32_t SysTickCnt;
 /* 系统硬件初始化完成 */
 extern bool systemReady;
 
-#ifndef __bool_true_false_are_defined
-/* typedef bool */
-typedef enum {
-    false = 0, true = 1
-} bool;
-
-#endif
-
 /* 三种模式 */
-typedef unsigned char Mode;
-const uint8_t Mode_Remote = 0x01;
-const uint8_t Mode_Track = 0x02;
-const uint8_t Mode_Identify = 0x04;
+typedef enum {
+    Mode_Remote,  /* 遥控模式 */
+    Mode_Identify,/* 识别模式 */
+    Mode_Pause    /* 停止模式 */
+} Mode_t;
+
+/* 规定动作 */
+typedef enum {
+    Action_Fore,
+    Action_Back,
+    Action_Left,
+    Action_Right,
+    Action_Rotate,
+    Action_Pause
+} Action_t;
 
 /***
   * STM32与ESP8266通信
-  * 串口4，波特率9600，1停止位，奇校验
+  * 串口4，波特率115200，1停止位，无校验
  */
 
 /* 发送到Esp8266的信息，字节对齐1，长度9字节*/
@@ -46,7 +49,7 @@ typedef struct __attribute__((packed)) {
     /* 上位机是否在线 */
     uint8_t isMasterOnline;
     /* 控制模式 */
-    Mode mode;
+    Mode_t mode;
     /* 三个速度 */
     int16_t vx;
     int16_t vy;
@@ -56,31 +59,27 @@ typedef struct __attribute__((packed)) {
 
 /***
   * STM32与树莓派通信，使用串口1，
-  * 波特率9600，1个停止位，奇校验
+  * 波特率115200，1个停止位，无校验
  */
 typedef struct __attribute__((packed)) {
     /* 小车当前的控制模式 */
-    Mode mode;
+    Mode_t mode;
 } Send2RaspberryData_t;
 
-typedef unsigned char Action;
-const uint8_t Action_Fore = 0x01;
-const uint8_t Action_Back = 0x02;
-const uint8_t Action_Left = 0x04;
-const uint8_t Action_Right = 0x08;
 
-const uint8_t Action_Rotate = 0x0f;
 typedef struct __attribute__((packed)) {
     /* 帧头 */
     uint8_t header;
     /* 要求的动作 */
-    Action action;
+    Action_t action;
     /* 速度 */
     int16_t vx;
     int16_t vy;
     int16_t vr;
 } RecvfromRaspberryData_t;
 
+/* 小车当前的控制模式 */
+extern Mode_t ControlMode;
 /* 发送到Esp8266的数据 */
 extern Send2EspData_t Send2EspData;
 /* 接收自Esp8266的数据 */
